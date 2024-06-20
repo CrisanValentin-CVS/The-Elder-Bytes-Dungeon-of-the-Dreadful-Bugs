@@ -40,7 +40,7 @@ std::map<std::string, int> Items::getItemStats(const std::string& itemName) {
         stats["Attack"] = 10;
     }
     else if (itemName == "Heavy Armor" || itemName == "Helmet" || itemName == "Shield") {
-        stats["Defense"] = 5;
+        stats["Defense"] = 15;
     }
     else if (itemName == "Fire Staff" || itemName == "Frost Staff" || itemName == "Earth Staff") {
         stats["Magic"] = 10;

@@ -6,7 +6,7 @@
 Player::Player(const std::string& name, int health, int level, HeroClass heroClass)
     : name(name), health(health), level(level), heroClass(heroClass) {
     stats["Attack"] = 10;
-    stats["Defense"] = 5;
+    stats["Defense"] = 15;
     stats["Magic"] = 5;
     stats["MagicDefense"] = 3;
     stats["Agility"] = 2;

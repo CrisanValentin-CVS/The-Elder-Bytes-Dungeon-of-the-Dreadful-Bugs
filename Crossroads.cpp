@@ -4,10 +4,21 @@
 #include "Player.h"
 #include <iostream>
 #include <limits>
+#include <cstdlib>
 
-void Crossroads::choosePath() const {
+Crossroads::Crossroads() : currentScene(Scene::Forest) {}
+
+bool Crossroads::continueJourney() {
+    char choice;
+    std::cout << "Do you want to continue your journey? (Y/N): ";
+    std::cin >> choice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character from the buffer
+    return (choice == 'Y' || choice == 'y');
+}
+
+void Crossroads::explore() {
     int choice;
-    std::cout << "Choose a path:\n"
+    std::cout << "You have reached a crossroads. Where do you want to go?\n"
         << "1. Forest\n"
         << "2. Village\n"
         << "3. Cave\n"
@@ -17,40 +28,22 @@ void Crossroads::choosePath() const {
 
     switch (choice) {
     case 1:
-        std::cout << "You venture into the forest...\n";
+        currentScene = Scene::Forest;
+        std::cout << "You are now exploring the forest.\n";
         break;
     case 2:
-        std::cout << "You head towards the village...\n";
+        currentScene = Scene::Village;
+        std::cout << "You are now exploring the village.\n";
         break;
     case 3:
-        std::cout << "You descend into the cave...\n";
+        currentScene = Scene::Cave;
+        std::cout << "You are now exploring the cave.\n";
         break;
     default:
-        std::cout << "Invalid choice, defaulting to forest.\n";
-        std::cout << "You venture into the forest...\n";
-        break;
+        std::cout << "Invalid choice, staying in the current scene.\n";
     }
 }
 
-bool Crossroads::continueJourney() const {
-    char choice;
-    std::cout << "Do you want to continue your journey to another crossroads? (Y/N): ";
-    std::cin >> choice;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character from the buffer
-    return (choice == 'Y' || choice == 'y');
-}
-
-void Crossroads::explore() {
-    choosePath();
-
-    // Randomly decide whether to show the chest scene or monster battle scene
-    int scene = std::rand() % 2;
-    if (scene == 0) {
-        // Chest scene
-        std::cout << "You found a chest! Opening it...\n";
-    }
-    else {
-        // Monster battle scene
-        std::cout << "You encounter a monster!\n";
-    }
+Crossroads::Scene Crossroads::getCurrentScene() const {
+    return currentScene;
 }

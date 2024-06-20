@@ -23,12 +23,58 @@
 #include "BossBattle.h"
 
 void clearScreen() {
-    system("cls");
+    std::cout << "\033[2J\033[1;1H";
 }
 
 void pause() {
     std::cout << "Press Enter to continue...";
     std::cin.get();
+}
+
+void playSceneMusic(Crossroads::Scene scene) {
+    std::string sceneSound;
+    switch (scene) {
+    case Crossroads::Scene::Forest:
+        sceneSound = "Intro.wav";
+        break;
+    case Crossroads::Scene::Village:
+        sceneSound = "Village.wav";
+        break;
+    case Crossroads::Scene::Cave:
+        sceneSound = "Cave.wav";
+        break;
+    }
+    GameAudio::playSound(sceneSound);
+}
+
+void playMonsterIntroAndBattleMusic(Monster* monster) {
+    std::string introSound;
+    std::string battleSound;
+
+    if (dynamic_cast<Goblin*>(monster)) {
+        introSound = "GoblinIntro.wav";
+        battleSound = "GoblinBattle.wav";
+    }
+    else if (dynamic_cast<Barbarian*>(monster)) {
+        introSound = "BarbarianIntro.wav";
+        battleSound = "BarbarianBattle.wav";
+    }
+    else if (dynamic_cast<Dragon*>(monster)) {
+        introSound = "DragonIntro.wav";
+        battleSound = "DragonBattle.wav";
+    }
+    else if (dynamic_cast<Scorpion*>(monster)) {
+        introSound = "ScorpionIntro.wav";
+        battleSound = "ScorpionBattle.wav";
+    }
+    else if (dynamic_cast<Soldier*>(monster)) {
+        introSound = "SoldierIntro.wav";
+        battleSound = "SoldierBattle.wav";
+    }
+
+    GameAudio::playSound(introSound);
+    Sleep(3000); // Wait for the intro sound to finish (adjust time as needed)
+    GameAudio::playSound(battleSound);
 }
 
 bool askToContinue() {
@@ -63,7 +109,7 @@ Player::HeroClass chooseHeroClass() {
 }
 
 Monster* getRandomMonster() {
-    int randIndex = std::rand() % 3;
+    int randIndex = std::rand() % 5;
     switch (randIndex) {
     case 0: return new Goblin();
     case 1: return new Barbarian();
@@ -75,11 +121,11 @@ Monster* getRandomMonster() {
 }
 
  //GameAudio::playSound("C:/Users/Crisan Valentine/Documents/ProgrammingProjects/The Elder Bytes Dungeon of the Dreadful Bugs/Exploring.wav"); // Example for exploring forest
-int main() {
+bool startGame() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed random number generator
 
     // Intro
-    GameAudio::playSound("C:/Users/Crisan Valentine/Documents/ProgrammingProjects/The Elder Bytes Dungeon of the Dreadful Bugs/Forest.wav");
+    GameAudio::playSound("Intro.wav");
 
     Intro intro;
     intro.displayIntroStory();
@@ -100,6 +146,9 @@ int main() {
     Player player(playerName, playerHealth, playerLevel, heroClass);
     player.display();
 
+    pause();
+    clearScreen();
+
     Crossroads crossroads;
     int battleCount = 0;
 
@@ -112,17 +161,21 @@ int main() {
         int scene = std::rand() % 2;
         if (scene == 0) {
             // Chest scene
-            GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\forest.wav"); // Example for exploring forest
+            playSceneMusic(crossroads.getCurrentScene());
             std::cout << "\nYou found a chest! Opening it...\n";
             std::string itemName = Items::getRandomItemName(player.getHeroClass());
             player.addItem(itemName);
             player.display();
+
+            pause();
+            clearScreen();
         }
+
         else {
             // Monster battle scene
-            GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\battle.wav");
             Monster* monster = getRandomMonster();
             monster->display();
+            playMonsterIntroAndBattleMusic(monster);
 
             std::cout << "\nBattle begins!\n";
 
@@ -139,13 +192,13 @@ int main() {
             }
 
             if (player.isDead()) {
-                GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\player_dies.wav");
+                GameAudio::playSound("PlayerDies.wav");
                 std::cout << "\nPlayer has been defeated!\n";
                 delete monster;
                 break;
             }
             else {
-                GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\monster_dies.wav");
+                GameAudio::playSound("MonsterDies.wav");
                 std::cout << "\nMonster has been defeated!\n";
                 battleCount++;
             }
@@ -159,9 +212,10 @@ int main() {
 
         // Trigger boss battle after 5 battles
         if (battleCount == 5) {
-            GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\boss_battle.wav");
+            GameAudio::playSound("BossIntro.wav");
             std::cout << "\nA powerful enemy appears!\n";
             Boss boss;
+            GameAudio::playSound("BossBattle.wav");
             boss.display();
 
             while (!player.isDead() && !boss.isDead()) {
@@ -179,12 +233,12 @@ int main() {
             }
 
             if (player.isDead()) {
-                GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\player_dies.wav");
-                std::cout << "\nPlayer has been defeated by Your Manager!\n";
+                GameAudio::playSound("PlayerDies.wav");
+                std::cout << playerName << " has been defeated by Your Manager!\n";
                 break;
             }
             else {
-                GameAudio::playSound("C:\\Path\\To\\Your\\Sounds\\boss_dies.wav");
+                GameAudio::playSound("ManagerDies.wav");
                 std::cout << "\nYour Manager has been defeated!\n";
             }
 
@@ -196,5 +250,14 @@ int main() {
     }
 
     std::cout << "Your journey ends here. Thank you for playing!\n";
+    return true;
+}
+
+int main() {
+    do {
+        clearScreen();
+    } while (startGame() && askToContinue());
+
+    std::cout << "Thank you for playing!\n";
     return 0;
 }

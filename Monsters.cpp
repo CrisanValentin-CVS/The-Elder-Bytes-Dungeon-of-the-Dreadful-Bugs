@@ -28,4 +28,4 @@ Scorpion::Scorpion() : Monster("Scorpion", 40, 10) {}
 
 Soldier::Soldier() : Monster("Soldier", 50, 15) {}
 
-Dragon::Dragon() : Monster("Dragon", 100, 20) {}
+Dragon::Dragon() : Monster("Dragon", 70, 15) {}

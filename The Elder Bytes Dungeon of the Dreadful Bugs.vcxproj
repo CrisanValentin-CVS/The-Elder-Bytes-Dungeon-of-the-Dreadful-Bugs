@@ -146,6 +146,23 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Intro.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="BarbarianBattle.wav" />
+    <Media Include="BarbarianIntro.wav" />
+    <Media Include="DragonBattle.wav" />
+    <Media Include="DragonIntro.wav" />
+    <Media Include="Forest.wav" />
+    <Media Include="GoblinBattle.wav" />
+    <Media Include="GoblinIntro.wav" />
+    <Media Include="Intro.wav" />
+    <Media Include="ManagerBattle.wav" />
+    <Media Include="ManagerIntro.wav" />
+    <Media Include="PlayerDies.wav" />
+    <Media Include="ScorpionBattle.wav" />
+    <Media Include="ScorpionIntro.wav" />
+    <Media Include="SoldierBattle.wav" />
+    <Media Include="SoldierIntro.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

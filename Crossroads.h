@@ -7,11 +7,16 @@
 
 class Crossroads {
 public:
+    enum class Scene { Forest, Village, Cave };
+
+    Crossroads();
     void explore();
-    bool continueJourney() const;
+    bool continueJourney();
+    Scene getCurrentScene() const;
 
 private:
     void choosePath() const;
+    Scene currentScene;
 };
 
 #endif // CROSSROADS_H

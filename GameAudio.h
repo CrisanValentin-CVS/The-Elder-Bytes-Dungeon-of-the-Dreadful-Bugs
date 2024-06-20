@@ -2,14 +2,12 @@
 #define GAMEAUDIO_H
 
 #include <string>
+#include <windows.h>
 
 class GameAudio {
 public:
-    static void playSound(const std::string& filename);
+    static void playSound(const std::string& soundFile);
     static void stopSound();
-
-private:
-    static std::wstring stringToWString(const std::string& s);
 };
 
-#endif // GAMEAUDIO_H
+#endif // AUDIOMANAGER_H
