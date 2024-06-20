@@ -1,20 +1,20 @@
-// Items.cpp
 #include "Items.h"
 #include "Player.h"
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <map>
 
 std::vector<std::string> Items::getWarriorItems() {
-    return { "Sword", "Axe", "Hammer", "Heavy Armor", "Helmet", "Shield" };
+    return { "Sword", "Axe", "Hammer", "Heavy Armor", "Helmet", "Shield", "HealthPotion"};
 }
 
 std::vector<std::string> Items::getWizardItems() {
-    return { "Fire Staff", "Frost Staff", "Earth Staff", "Robe", "Wizard Hat" };
+    return { "Fire Staff", "Frost Staff", "Earth Staff", "Robe", "Wizard Hat", "HealthPotion"};
 }
 
 std::vector<std::string> Items::getArcherItems() {
-    return { "Short Bow", "Long Bow", "Javelin", "Cape", "Light Armor" };
+    return { "Short Bow", "Long Bow", "Javelin", "Cape", "Light Armor", "HealthPotion"};
 }
 
 std::string Items::getRandomItemName(Player::HeroClass heroClass) {
@@ -55,4 +55,11 @@ std::map<std::string, int> Items::getItemStats(const std::string& itemName) {
         stats["Agility"] = 5;
     }
     return stats;
+}
+
+void Items::applyItemEffect(Player& player, const std::string& itemName) {
+    if (itemName == "HealthPotion") {
+        player.replenishHealth(100);
+        std::cout << "You found a Health Potion! Your health is replenished by 100 points.\n";
+    }
 }

@@ -10,4 +10,4 @@ public:
     static void stopSound();
 };
 
-#endif // AUDIOMANAGER_H
+#endif

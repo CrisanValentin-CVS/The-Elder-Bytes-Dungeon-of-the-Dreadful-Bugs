@@ -10,13 +10,14 @@
 class Items {
 public:
     enum class ItemType {
-        Sword, Axe, Hammer, HeavyArmor, Helmet, Shield, // Warrior items
-        FireStaff, FrostStaff, EarthStaff, Robe, WizardHat, // Wizard items
-        ShortBow, LongBow, Javelin, Cape, LightArmor // Archer items
+        Sword, Axe, Hammer, HeavyArmor, Helmet, Shield,// Warrior items
+        FireStaff, FrostStaff, EarthStaff, Robe, WizardHat,// Wizard items
+        ShortBow, LongBow, Javelin, Cape, LightArmor, HealthPotion// Archer items
     };
 
     static std::string getRandomItemName(Player::HeroClass heroClass);
     static std::map<std::string, int> getItemStats(const std::string& itemName);
+    static void applyItemEffect(Player& player, const std::string& itemName);
 
 private:
     static std::vector<std::string> getWarriorItems();
@@ -24,4 +25,4 @@ private:
     static std::vector<std::string> getArcherItems();
 };
 
-#endif // ITEMS_H
+#endif

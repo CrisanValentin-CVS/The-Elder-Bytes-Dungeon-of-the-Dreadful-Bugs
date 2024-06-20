@@ -10,4 +10,4 @@ public:
     void attack(Player& player) const override;
 };
 
-#endif // BOSS_H
+#endif

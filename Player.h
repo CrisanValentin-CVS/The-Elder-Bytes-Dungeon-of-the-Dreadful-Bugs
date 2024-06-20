@@ -1,4 +1,3 @@
-// Player.h
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -23,6 +22,7 @@ public:
     void display() const;
     void addItem(const std::string& itemName);
     void applyItemStats(const std::map<std::string, int>& itemStats);
+    void replenishHealth(int amount);
 
 private:
     std::string name;
@@ -32,4 +32,4 @@ private:
     std::map<std::string, int> stats;
 };
 
-#endif // PLAYER_H
+#endif

@@ -2,7 +2,7 @@
 //
 
 //First Functional Version
-//Not yet done, need to add more music/sounds and graphics,
+//Not yet done, need to add graphics,
 //modify crossroads and balance stats
 
 #define NOMINMAX
@@ -120,7 +120,7 @@ Monster* getRandomMonster() {
     }
 }
 
- //GameAudio::playSound("C:/Users/Crisan Valentine/Documents/ProgrammingProjects/The Elder Bytes Dungeon of the Dreadful Bugs/Exploring.wav"); // Example for exploring forest
+//GameAudio::playSound("C:/Users/Crisan Valentine/Documents/ProgrammingProjects/The Elder Bytes Dungeon of the Dreadful Bugs/Exploring.wav"); // Example for exploring forest
 bool startGame() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed random number generator
 
@@ -187,8 +187,8 @@ bool startGame() {
                     monster->attack(player);
                     player.display();
                 }
-            pause();
-            clearScreen();
+                pause();
+                clearScreen();
             }
 
             if (player.isDead()) {

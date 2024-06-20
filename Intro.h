@@ -8,4 +8,4 @@ public:
     void displayIntroStory() const;
 };
 
-#endif // INTRO_H
+#endif

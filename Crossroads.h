@@ -19,4 +19,4 @@ private:
     Scene currentScene;
 };
 
-#endif // CROSSROADS_H
+#endif

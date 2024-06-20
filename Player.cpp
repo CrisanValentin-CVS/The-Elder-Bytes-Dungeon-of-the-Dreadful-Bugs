@@ -20,6 +20,11 @@ int Player::getHealth() const {
     return health;
 }
 
+void Player::replenishHealth(int amount) {
+    health += amount;
+    std::cout << "Health replenished by " << amount << " points. Current health: " << health << "\n";
+}
+
 int Player::getLevel() const {
     return level;
 }

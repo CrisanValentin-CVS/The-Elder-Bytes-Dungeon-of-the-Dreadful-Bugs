@@ -46,4 +46,4 @@ public:
     Dragon();
 };
 
-#endif // MONSTER_H
+#endif
